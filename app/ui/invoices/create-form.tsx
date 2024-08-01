@@ -1,3 +1,5 @@
+"use client"
+
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
@@ -7,11 +9,14 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
+import { createInvoice } from '@/app/lib/actions';
+
+
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   return (
-    <form>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+    <form action={createInvoice}>
+      <div className="rounded-md bg-gray-50 p-4 md:p-6 text-black">
         {/* Customer Name */}
         <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-sm font-medium">
@@ -28,7 +33,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                 Select a customer
               </option>
               {customers.map((customer) => (
-                <option key={customer.id} value={customer.id}>
+                <option key={customer.id} value={customer.id} className='text-black'>
                   {customer.name}
                 </option>
               ))}
@@ -105,7 +110,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create Invoice</Button>
+        <Button type="submit" onSubmit={() => {
+          console.log("ikan")
+        }}>Create Invoice</Button>
       </div>
     </form>
   );
